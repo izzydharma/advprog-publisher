@@ -121,4 +121,32 @@ Features I find helpful:
 * Automated Testing: Writing test scripts in Postman ensures that endpoints behave as expected after changes.
 * Mock Servers: Simulating API responses helps test integrations without relying on a live backend.
 These features make Postman a powerful tool for debugging, testing, and ensuring the reliability of APIs in both individual and group projects.
+
 #### Reflection Publisher-3
+
+##### 1. Which variation of Observer Pattern do we use in this tutorial case?
+
+In this tutorial case, we use the Push model of the Observer Pattern. The publisher (BambangShop) actively pushes data (notifications) to the subscribers by sending HTTP POST requests with the relevant information (e.g., product details and status) to the subscriber's URL.
+
+##### 2 . What are the advantages and disadvantages of using the other variation of Observer Pattern (Pull model) for this tutorial case?
+
+If we were to use the Pull model, the subscribers would need to actively request (pull) data from the publisher instead of the publisher pushing notifications.
+
+* Advantages of Pull model:
+    * Subscribers have more control over when they retrieve data, reducing unnecessary notifications if they are not interested in certain updates.
+    * It can reduce the load on the publisher, as it does not need to send notifications to all subscribers.
+
+* Disadvantages of Pull model:
+    * Increased complexity for subscribers, as they need to implement logic to periodically poll the publisher for updates.
+    * Higher latency, as subscribers may not receive updates immediately unless they poll frequently.
+    * Inefficient for real-time notifications, as subscribers may miss critical updates if they do not poll in time.
+    Overall, the Pull model would not be ideal for this case, as the goal is to provide real-time notifications to subscribers.
+
+##### 3. What will happen to the program if we decide to not use multi-threading in the notification process?
+
+If we do not use multi-threading in the notification process:
+
+* Performance Impact: The program will process each subscriber's notification sequentially. If there are many subscribers or if the HTTP POST requests take time to complete, the notification process will become a bottleneck, significantly slowing down the system.
+* Blocking Behavior: The main thread will be blocked while sending notifications, potentially delaying other operations (e.g., handling new requests or processing other tasks).
+* dScalability Issues: As the number of subscribers grows, the time required to notify all of them will increase linearly, making the system less scalable.
+Using multi-threading allows the program to send notifications concurrently, improving performance and ensuring that the system remains responsive even with a large number of subscribers.
