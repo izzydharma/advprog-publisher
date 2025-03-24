@@ -78,6 +78,18 @@ This is the place for you to write reflections:
 
 #### Reflection Publisher-1
 
+##### 1. Do we still need an interface (or trait in Rust) in this BambangShop case, or is a single Model struct enough?
+
+In the Observer design pattern, an interface (or trait in Rust) is typically used to define a contract for the Subscriber to ensure that all subscribers implement a common method, such as update(). However, in this BambangShop case, since all subscribers are external Rocket instances and the notification is sent via HTTP POST requests, there is no need for a trait. A single Subscriber struct is sufficient to represent the subscriber's data (e.g., url and name) because the notification mechanism does not rely on polymorphism or method overriding.
+
+##### 2. Is using Vec (list) sufficient or is DashMap (map/dictionary) necessary for unique id in Program and url in Subscriber?
+
+Using DashMap is necessary in this case because it provides efficient lookups and ensures uniqueness of keys (id for Program and url for Subscriber). A Vec would require manual iteration to check for duplicates, which is less efficient and error-prone. Additionally, DashMap allows concurrent access, making it suitable for a multi-threaded environment where multiple threads might add or remove subscribers simultaneously.
+
+##### 3. Do we still need DashMap or can we implement the Singleton pattern instead?
+
+While the Singleton pattern ensures a single instance of the SUBSCRIBERS variable, it does not inherently provide thread safety or efficient concurrent access. DashMap is specifically designed for thread-safe operations, allowing multiple threads to read and write concurrently without additional synchronization mechanisms. Therefore, DashMap is a better choice for this use case, as it combines the benefits of a thread-safe data structure with the Singleton pattern (via lazy_static!).
+
 #### Reflection Publisher-2
 
 #### Reflection Publisher-3
