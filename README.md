@@ -92,4 +92,33 @@ While the Singleton pattern ensures a single instance of the SUBSCRIBERS variabl
 
 #### Reflection Publisher-2
 
+##### 1. Why do we need to separate “Service” and “Repository” from a Model in the MVC pattern?
+
+Separating "Service" and "Repository" from the Model adheres to the Single Responsibility Principle (SRP), which states that a class or module should have only one reason to change.
+
+* The Repository is responsible for data access and persistence, abstracting the database or storage layer.
+* The Service handles business logic, ensuring that the application logic is decoupled from data storage.
+By separating these concerns, we achieve better modularity, testability, and maintainability. Changes in the database structure or business rules will not directly affect the Model, reducing the risk of introducing bugs.
+
+##### 2. What happens if we only use the Model?
+
+If we only use the Model to handle both data storage and business logic, the code becomes tightly coupled and harder to maintain.
+
+* Increased Complexity: Each Model would need to handle its own data access, validation, and business logic, leading to bloated and complex code.
+
+* Code Duplication: Common logic shared across models (e.g., validation or notification logic) would likely be duplicated, increasing the risk of inconsistencies.
+
+* Difficult Interactions: Interactions between models (e.g., Program, Subscriber, and Notification) would require direct dependencies, making the codebase harder to refactor and test.
+Overall, this approach would violate SRP and make the system less scalable.
+
+##### 3. How does Postman help in testing your current work?
+
+Postman is an invaluable tool for testing REST APIs. It allows us to simulate HTTP requests and verify the responses without needing a frontend or additional setup.
+
+Features I find helpful:
+* Collections: Organizing API endpoints into collections helps manage and test multiple endpoints systematically.
+* Environment Variables: Using variables for URLs and parameters makes it easy to switch between development and production environments.
+* Automated Testing: Writing test scripts in Postman ensures that endpoints behave as expected after changes.
+* Mock Servers: Simulating API responses helps test integrations without relying on a live backend.
+These features make Postman a powerful tool for debugging, testing, and ensuring the reliability of APIs in both individual and group projects.
 #### Reflection Publisher-3
